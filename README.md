@@ -10,4 +10,4 @@ mcNameFinder is a python script you can use to find short usernames (e.g. 4-lett
 6. in the ```.\output\``` folder you will find three .txt files
    - ```available.txt``` (usernames which aren't taken, you can use these)
    - ```unavailable.txt``` (usernames which are taken, you can't use these)
-   - ```ratelimited.txt``` (usernames which couldn't be checked because you were being rate-limited)
+   - ```ratelimited.txt``` (usernames which couldn't get checked because you were being rate-limited)
