@@ -3,39 +3,18 @@ import requests
 import time
 import json
 
-# Configuration for proxy (if needed)
-# A socks5 proxy will require you to install socks using pip
-use_proxy = False
-proxy_type = 'http' # Can also be 'https' or 'socks5'
-proxy_host = 'your_proxy_host'
-proxy_port = 'your_proxy_port'
-proxy_user = 'your_proxy_username'
-proxy_pass = 'your_proxy_password'
-
 RED = '\033[91m'
 GREEN = '\033[92m'
 YELLOW = '\033[33m'
 BLUE = '\033[36m'
 RESET = '\033[0m'
 
-def set_proxy():
-    if use_proxy and proxy_type == 'socks5':
-        import socks
-        socks.set_default_proxy(socks.SOCKS5, proxy_host, int(proxy_port), username=proxy_user, password=proxy_pass)
-        socks.wrap_module(requests)
-
 def check_username(name):
-    set_proxy()
-    proxies = None
-    if use_proxy:
-        proxy_url = f"{proxy_type}://{proxy_user}:{proxy_pass}@{proxy_host}:{proxy_port}"
-        proxies = {'http': proxy_url, 'https': proxy_url}
-
     url = f"https://api.mojang.com/users/profiles/minecraft/{name}"
     retries = 5
     for _ in range(retries):
         try:
-            response = requests.get(url, proxies=proxies)
+            response = requests.get(url)
             if response.status_code == 200:
                 return "taken"
             elif response.status_code == 404:
@@ -46,10 +25,10 @@ def check_username(name):
                 except json.JSONDecodeError:
                     pass
             else:
-                print(f"[~] RATE LIMIT ({name})")
+                print(f"[{YELLOW}~{RESET}] RATE LIMIT ({name})")
                 time.sleep(1)
         except requests.exceptions.RequestException as e:
-            print(f"[~] RATE LIMIT ({name})")
+            print(f"[{YELLOW}~{RESET}] RATE LIMIT ({name})")
             time.sleep(1)
     return "error"
 
