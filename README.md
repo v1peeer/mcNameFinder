@@ -1,5 +1,5 @@
-# mcNameFinder
-mcNameFinder is a python script you can use to find short usernames (e.g. 4-letter names)
+# mcnamefinder
+mcnamefinder is a python script you can use to find short usernames (e.g. 4-letter names)
 
 # tutorial
 1. clone/download & extract this repo
